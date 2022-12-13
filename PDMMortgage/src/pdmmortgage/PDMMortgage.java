@@ -654,7 +654,7 @@ public class PDMMortgage{
            StringBuilder resource_choice= new StringBuilder("");
            if(executable.isEmpty() && !executable_without.isEmpty())//execution has completed since the production of A is no longer possible
            {
-            System.out.println("print to crash?");
+           
             System.out.println(executable_without.keySet());
             int key;
             if(choice==0)
@@ -1085,7 +1085,7 @@ public class PDMMortgage{
         }
         else
         {
-            
+          
          y=0;
         int s=10;
         while(s !=0 && s != 1)
@@ -1109,9 +1109,10 @@ public class PDMMortgage{
         int[] cost_failure = new int[13]; 
         int debug=0;
         
+        int choice_number = 13;
         PrintWriter[] pw = new PrintWriter[13];
        String[] heuristics = {"Random","Lowest-Cost","Shortest-Time","Lowest-Fail-Probability","Root-Distance","Cost-Distance","Time-Distance","Rank-based","Rank-based-Time","Rank-based-Combination","Rank-based-extended","Rank-Based-extended-Time","Rank-Based-extended-Combo","Minimize-Waiting-Time","Minimize Waiting Time Conditional"};
-        while(y<13)
+        while(y<choice_number)
         {
            String filename = heuristics[y] + ".txt";
            pw[y] = new PrintWriter(new FileWriter(filename));
@@ -1339,7 +1340,7 @@ public class PDMMortgage{
         int u=0;
          
         
-        while(u<13)
+        while(u<choice_number)
         {
            listOfMaps.add((HashMap) operations.clone());
            u++;
@@ -1348,7 +1349,7 @@ public class PDMMortgage{
         }
         HashMap<Integer,Integer> productions = new HashMap<Integer,Integer>();
         determineExecutionInstance(operations,productions);
-        while(choice<13)
+        while(choice<choice_number)
         {
         cost=0;
         time=0;
@@ -1644,7 +1645,7 @@ public class PDMMortgage{
     
     }
        
-      for(int i=0;i<13;i++)
+      for(int i=0;i<choice_number;i++)
       {
        double result = (double) sum[i]/ (double)success[i]; //average execution cost
        pw[i].close();
