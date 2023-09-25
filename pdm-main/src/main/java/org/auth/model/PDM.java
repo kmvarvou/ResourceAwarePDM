@@ -231,7 +231,7 @@ public class PDM {
         int sum_out=0;
         for(DataElement cand : candidates)
         {
-          //System.out.println(cand);
+          
           sum_cand=0;
           sum_out=0;
           for(Operation op : operations)
@@ -249,9 +249,9 @@ public class PDM {
           if(sum_out==sum_cand)
           {
               prune2.add(cand);
-              //String output2 = cand.replace("i","");
+              
               int two = cand.getId();
-              //System.out.println(two);
+              
               if(dist[0][operation.getId()]!=0) // na to do poio value antiprosoeuei tin ellipsi edge
               {
               dist2[two]+=dist[0][operation.getId()];
@@ -266,7 +266,7 @@ public class PDM {
         }
         if(prune2.isEmpty())
         {
-            //System.out.println("na doume");
+            
         }
         
         
@@ -288,7 +288,7 @@ public class PDM {
                 ArrayList<String> timeframes = assignments_entry.getValue();
                 if(timeframes.size()>1)
                 {
-                    //System.out.println("trickygym");
+                    
                 }
                 for(String timeframe : timeframes)
                 {
@@ -296,7 +296,7 @@ public class PDM {
                 String[] timesplit = timeframe.split("-");
                 Double starting_time = Double.parseDouble(timesplit[0]);
                 Double ending_time = Double.parseDouble(timesplit[1]);
-                //System.out.println(resource.getName() + " , " + ending_time + " , " + time + " giratina");
+                
                 if(starting_time<=time && ending_time>time)
                 {
                     capacity -= 1;
@@ -314,12 +314,12 @@ public class PDM {
             if(capacity<=0)
             {
                 count -= 1;
-                 //System.out.println(resource.getName() + " , " + capacity);
+                 
             }
             
             else
             {
-               //System.out.println(resource.getName() + " , " + capacity);
+               
             }
             
             
@@ -328,12 +328,12 @@ public class PDM {
         
         if(count>0)
         {
-            //System.out.println("capacity " + count + " , " + time);
+            
             return true;
         }
         else
         {
-            //System.out.println("clockwork");
+            
             return false;
         }
             
@@ -378,8 +378,7 @@ public class PDM {
             
             else
             {
-               //System.out.println(resource.getName());
-                //System.out.println(capacity +"   poso");
+               
             }
             
             
@@ -388,12 +387,12 @@ public class PDM {
         
         if(count>0)
         {
-            //System.out.println("capacity " + count);
+            
             return true;
         }
         else
         {
-            //System.out.println("clockwork");
+            
             return false;
         }
             
@@ -431,7 +430,7 @@ public class PDM {
                if( ending_time>time)
                 {
                  
-                    //System.out.println(ending_time + ", " + time + " ," + resource.getName() + " foivos");
+                   
                     capacity -= 1;
                 
                 }
@@ -485,7 +484,7 @@ public class PDM {
                {
                 if (ending_time >= time)
                 {
-                    System.out.println(ending_time);
+                   
                     candidate.add(ending_time);
                     
                 }
@@ -547,7 +546,7 @@ public class PDM {
                {
                 if (ending_time >= time)
                 {
-                    System.out.println(ending_time);
+                    
                     candidate.add(ending_time);
                     
                 }
@@ -733,12 +732,12 @@ public class PDM {
       HashSet<Resource> available_resources = this.getAvailableResources(time);
       for(Resource r : available_resources)
       {
-          //System.out.println(r.getName() + " current_time: " + time);
+          
       }
       LinkedHashSet<Operation> executable_filtered = new LinkedHashSet<>();
       for(Operation op : executable)
       {
-          //System.out.println(op.getName() + op.getResources().get(0).getName() + " whatever");
+          
          
           for(Resource r : op.getResources())
           {

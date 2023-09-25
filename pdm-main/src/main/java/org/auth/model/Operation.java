@@ -258,7 +258,7 @@ public class Operation {
     }
     
     public double getTime(Resource resource){
-        if(_time_resource.get(resource)==null){System.out.println(resource.getName() + " , " + this.getName());}
+        
         return _time_resource.get(resource);
     }
     
@@ -447,7 +447,7 @@ public class Operation {
             Resource resource_check = resource_entry.getKey();
             if(resource_check.getLiveCapacity(current_time)>0)
             {
-                //System.out.println("ti fasi elegxos" );
+                
                 if(_cost_resource.get(resource_check)<min)
                 {
                     min = _cost_resource.get(resource_check);
@@ -492,7 +492,7 @@ public class Operation {
             Resource resource_check = resource_entry.getKey();
             if(resource_check.getLiveCapacity(current_time)>0)
             {
-                //System.out.println("ti fasi elegxos" );
+                
                 if((_cost_resource.get(resource_check) * _time_resource.get(resource_check) )<min)
                 {
                     min = _cost_resource.get(resource_check) * _time_resource.get(resource_check);

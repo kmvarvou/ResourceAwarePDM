@@ -209,7 +209,6 @@ public class Resource {
                 String[] timesplit = timeframe.split("-");
                 Double starting_time = Double.parseDouble(timesplit[0]);
                 Double ending_time = Double.parseDouble(timesplit[1]);
-                //System.out.println("dasasa" + ending_time + " , " + time);
                 
                
                
