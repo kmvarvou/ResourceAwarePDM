@@ -67,9 +67,20 @@ public class Main implements Runnable {
 //                    new KnockoutPathTimePruneBothTime(),
 //                    new KnockoutPathTimePruneBothCombo()
             );
+            
+            List<String> schedulerNames = Arrays.asList(
+                    "Non-parallel",
+                    "Naive-parallel",
+                    "Advanced speculative parallel",
+                    "Advanced conservative parallel",
+                    "Naive parallel waiting variant",
+                    "Advanced speculative parallel waiting",
+                    "Advanced conservative parallel waiting"
+                    
+            );
 
             int numOfHeuristics = 13;
-            int numOfSchedulers = 2;
+            int numOfSchedulers = 7;
             
             
             double maximum = 0;
@@ -119,17 +130,17 @@ public class Main implements Runnable {
                 }
                 
                 
-                for(int p =1 ; p< numOfSchedulers;p++){
+                for(int p =0 ; p< numOfSchedulers;p++){
                 
                 for (int i = 0; i < numOfHeuristics; i++) {
                     num_of_operations[p][i] = 0;
-                     System.out.println("dogkanos :" + p + "," + i + "," + numOfHeuristics);// for each heuristic // heuristics.size()
-                    //System.out.println("start of new execution");
+                    
+                    
                     pw.println("<instance>");
                     PDM pdm = pdmList_instances.get(p).get(i);
-                    //System.out.println(pdm.getResourceCapacity(0.0));
+                    
                     pdm.resetResources();
-                    //System.out.println(pdm.getResourceCapacity(0.0));
+                    
                     double cost = 0.0;
                     double time = 0.0;
                     double current_time = 0.0;
@@ -146,7 +157,7 @@ public class Main implements Runnable {
                         
                         
                         current_time = pdm.getNextTime(current_time,pass);
-                        System.out.println("next current_time: " + current_time);
+                        
                         for (Operation op : pdm.operations()) { // for each operation
                             if (!op.hasInput()) { // operation has no input
                                 executable.add(op);
@@ -162,48 +173,21 @@ public class Main implements Runnable {
                             for(Operation op : prune)
                             {
                                 executable.remove(op);
-                                //System.out.println("whatever");
+                                
                             }
                         }
-                         System.out.println(pdm.operations().size() + " wtf");
+                         
                         if (executable.isEmpty() ) {
-                            System.out.println("execution finished" + " scheduler " + p );
-                            System.out.println("cost: " + cost);
-                            System.out.println("time: " + time);
-                            System.out.println();
-                            //sum_cost[i] += cost;
-                            //sum_time[i] += time;
-                            //obj_runs += 1;
+                            
                             
                             Iterator it = started.entrySet().iterator();
                             while(it.hasNext())
                             {
                                 Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                                System.out.println(entry.getKey().getName());
-                                Operation whatever = null;
-                                for(Operation op : og_operations)
-                                {
-                                    if(op.output().getName().equals(entry.getKey().getName()))
-                                    {
-                                        whatever = op;
-                                    }
-                                }
                                 
-                                if(whatever.hasInput())
-                                {
-                                List<DataElement> input = whatever.input();
-                                for(DataElement d : input)
-                               {
-                                    if(executed.containsKey(d))
-                                    {
-                                    if(executed.get(d)> entry.getValue())
-                                    {
-                                        System.out.println("invalidate " + whatever.getName());
-                                        invalidate_runs[i] +=1;
-                                    }
-                                    }
-                                }
-                                }
+                                
+                                
+                                
                                 
                             }
                             pw.println("</instance>");
@@ -212,25 +196,34 @@ public class Main implements Runnable {
                         List<Pair<Operation,Resource>> nextOp_list;
                         if(p==0)
                         {
-                             nextOp_list = OGScheduler(pdm,executable,available,heuristics.get(10),prerun,0,current_time);
-                            //nextOp_list = ResourceScheduler(pdm,executable,available,heuristics.get(10),prerun,0,current_time,executed);
-                            //nextOp_list = ResourceScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
+                             nextOp_list = OGScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time);
+                            
                         }
                         else if(p==1)
                         {
-                             //nextOp_list = OGScheduler(pdm,executable,available,heuristics.get(10),prerun,0,current_time);
-                            //nextOp_list = ParallelResourceAwareScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
-                            //nextOp_list = ResourceSchedulerWaiting(pdm,executable,available,heuristics.get(i),prerun,0,current_time,waiting_count[i],executed);
-                            nextOp_list = ResourceScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
-                            num_of_operations[p][i] += nextOp_list.size();
+                             
+                             nextOp_list = ParallelResourceAwareScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
+                            
                         }
                         else if(p==2)
                         {
                             nextOp_list = ResourceScheduler(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
                         }
-                        else
+                        else if(p==3)
                         {
                             nextOp_list = ResourceSchedulerMeaningless(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
+                        }
+                        else if(p==4)
+                        {
+                            nextOp_list = ParallelResourceAwareSchedulerWaiting(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
+                        }
+                        else if(p==5)
+                        {
+                            nextOp_list = ResourceSchedulerWaiting(pdm,executable,available,heuristics.get(i),prerun,0,current_time,waiting_count[i],executed);
+                        }
+                        else
+                        {
+                            nextOp_list = ResourceSchedulerMeaninglessWaiting(pdm,executable,available,heuristics.get(i),prerun,0,current_time,executed);
                         }
                         
                         
@@ -258,7 +251,7 @@ public class Main implements Runnable {
                             
                         if(available.contains(nextOp.output()))
                         {
-                            System.out.println(heuristicNames.get(i) + ", " + nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName() + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
+                            //System.out.println(heuristicNames.get(i) + ", " + nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName() + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
                             executed.put(nextOp.output(), (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())));
                             started.put(nextOp.output(), nextOp.getStartingTime());
                             pw.println(nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName()  + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
@@ -268,7 +261,7 @@ public class Main implements Runnable {
                             prune(pdm.operations(),nextOp,prune,pdm,prerun);
                             executed.put(nextOp.output(), (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())));
                             started.put(nextOp.output(), nextOp.getStartingTime());
-                            System.out.println(heuristicNames.get(i) + ", " + nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName() + " fail" + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
+                            //System.out.println(heuristicNames.get(i) + ", " + nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName() + " fail" + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
                             pw.println(nextOp.getName() + "," + nextOp.getStartingTime() + " - " + (nextOp.getStartingTime() +nextOp.getTime(nextOp_pair.getSecond())) + ", resource:" + nextOp_pair.getSecond().getName() + " cost: " + nextOp.getCost(nextOp_pair.getSecond()));
                         }
                         
@@ -285,12 +278,12 @@ public class Main implements Runnable {
                     }
                         
                         if (available.contains(pdm.target()) ) {
-                            System.out.println("execution finished objective + scheduler " + p);
+                            
                             num_of_operations_obj[p][i] += num_of_operations[p][i];
                             
-                            System.out.println("cost: " + cost);
-                            System.out.println("time: " + time);
-                            System.out.println();
+                            //System.out.println("cost: " + cost);
+                            //System.out.println("time: " + time);
+                            //System.out.println();
                             sum_cost[p][i] += cost;
                             sum_time[p][i] += pdm.getMaxTime();
                             obj_runs[p][i] += 1;
@@ -299,29 +292,8 @@ public class Main implements Runnable {
                             while(it.hasNext())
                             {
                                 Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                                 Operation whatever = null;
-                                for(Operation op : og_operations)
-                                {
-                                    if(op.output().getName().equals(entry.getKey().getName()))
-                                    {
-                                        whatever = op;
-                                    }
-                                }
-                                if(whatever.hasInput())
-                                {
-                                List<DataElement> input = whatever.input();
-                                for(DataElement d : input)
-                                {
-                                    if(executed.containsKey(d))
-                                    {
-                                    if(executed.get(d)> entry.getValue())
-                                    {
-                                        System.out.println("invalidate " +  whatever.getName());
-                                        invalidate_runs[i] +=1;
-                                    }
-                                    }
-                                }
-                                }
+                                 
+                                
                                 
                             }
                             if(p==0)
@@ -346,7 +318,7 @@ public class Main implements Runnable {
             }
                 
                
-            }//telos 62
+            }
             pw.close();
             System.out.println(
                     String.format("%-30s", "Heuristic,") +
@@ -355,7 +327,7 @@ public class Main implements Runnable {
             );
             
             for(int p=0; p <numOfSchedulers;p++){
-                System.out.println("Scheduler: " + p + " , ");
+                System.out.println("Scheduler: " + schedulerNames.get(p) + " , ");
             for (int i = 0; i < numOfHeuristics; i++) {
                 System.out.println(
                         String.format("%-30s", heuristicNames.get(i) + ",") +
@@ -394,10 +366,10 @@ public class Main implements Runnable {
                 }
             }
             
-            System.out.println(max_difference + " , " + max_cost);
             
             
-            System.out.println(num_of_operations_obj[1][0]/obj_runs[1][0]);
+            
+            
             
             File myObj = new File("pdm_log.txt");   
             Scanner myReader = new Scanner(myObj);
@@ -422,7 +394,7 @@ public class Main implements Runnable {
                    
                 }
             }
-            System.out.println(count);
+            
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -496,7 +468,7 @@ public class Main implements Runnable {
         int sum_out=0;
         for(DataElement cand : candidates)
         {
-          //System.out.println(cand);
+          
           sum_cand=0;
           sum_out=0;
           for(Operation op : operations)
