@@ -138,15 +138,10 @@ public class PDMParser {
             if (output == null) {
                 throw new PDMParserException("Operation " + operationName + " has no output.");
             }
-            //System.out.println(resources.size());
+            
             Operation op = new Operation(i + 1, operationName, input, output, time, cost, probability, resource, resources_op, cost_resource, time_resource);
             operations.add(op);
-            for(Resource r : resources_op)
-            {
-                //System.out.println(operationName);
-                //System.out.println(i+1);
-                //r.addResponsibility(op);
-            }
+           
             
         }
 
