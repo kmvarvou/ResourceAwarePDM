@@ -34,7 +34,7 @@ public class ResourceSchedulerMeaninglessWaiting {
                         while(it.hasNext())
                         {
                             Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                           // System.out.println(entry.getKey() + " , " + entry.getValue() + " , " + current_time);
+                           
                         }
              
                         LinkedHashSet<DataElement> available_filtered = new LinkedHashSet<DataElement>();
@@ -48,11 +48,11 @@ public class ResourceSchedulerMeaninglessWaiting {
                            if(executed.get(d)<=current_time)
                            {
                             available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                            
                            }
                           }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                        
                         }
                         LinkedHashSet<Operation> executable__first_filtered = new LinkedHashSet<>();
                         for (Operation op : pdm.operations()) { // for each operation
@@ -75,12 +75,7 @@ public class ResourceSchedulerMeaninglessWaiting {
                         LinkedHashSet<Operation> executable_filtered = pdm.executableFilter(executable__first_filtered, current_time);
 
                         if (executable_filtered.isEmpty()) {
-                            //System.out.println("execution finished");
                             
-                            //System.out.println();
-                            //sum_cost[i] += cost;
-                            //sum_time[i] += time;
-                            //obj_runs += 1;
 
                             break;
                         }
@@ -110,7 +105,7 @@ public class ResourceSchedulerMeaninglessWaiting {
                                 nextOp.setStartingTime(future_time);
                                 if(current_time!=0.0)
                                 {
-                                System.out.println("ferrari" + " WAS :"+  current_time + " : " + future_time);
+                                
                                 }
                                 
                                 
@@ -141,7 +136,7 @@ public class ResourceSchedulerMeaninglessWaiting {
                         {
                          nextOp_resource.assignResource(instance, future_time, future_time + nextOp.getTime(nextOp_resource)); 
                          
-                        //System.out.println("ferrari case: " + nextOp.getName() + " , " + future_time  + " - "+  (future_time +  nextOp.getTime(nextOp_resource)) + ", resource:" + nextOp_resource.getName());
+                       
                         }
                         executable.remove(nextOp);
                         pdm.operations().remove(nextOp);
@@ -152,14 +147,14 @@ public class ResourceSchedulerMeaninglessWaiting {
                         
 
                         
-                        System.out.println(forExecution.size() + " sofar");
+                        
                         
 
 
                     }
          
          
-         System.out.println("end of scheduling: " + forExecution.size() + "  , " + pdm.operations().size());
+         
          return forExecution;
          
          
@@ -211,7 +206,7 @@ public class ResourceSchedulerMeaninglessWaiting {
         int sum_out=0;
         for(DataElement cand : candidates)
         {
-          //System.out.println(cand);
+          
           sum_cand=0;
           sum_out=0;
           for(Operation op : operations)

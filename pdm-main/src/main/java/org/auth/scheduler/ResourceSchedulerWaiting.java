@@ -34,7 +34,7 @@ public class ResourceSchedulerWaiting {
                         while(it.hasNext())
                         {
                             Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                           // System.out.println(entry.getKey() + " , " + entry.getValue() + " , " + current_time);
+                          
                         }
              
                         LinkedHashSet<DataElement> available_filtered = new LinkedHashSet<DataElement>();
@@ -48,11 +48,11 @@ public class ResourceSchedulerWaiting {
                            if(executed.get(d)<=current_time)
                            {
                             available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                           
                            }
                           }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                       
                         }
                          LinkedHashSet<Operation> executable__first_filtered = new LinkedHashSet<>();
                         for (Operation op : pdm.operations()) { // for each operation
@@ -71,12 +71,7 @@ public class ResourceSchedulerWaiting {
                         
                         
                         if (executable_filtered.isEmpty()) {
-                            //System.out.println("execution finished");
                             
-                            //System.out.println();
-                            //sum_cost[i] += cost;
-                            //sum_time[i] += time;
-                            //obj_runs += 1;
 
                             break;
                         }
@@ -108,7 +103,7 @@ public class ResourceSchedulerWaiting {
                                 nextOp.setStartingTime(future_time);
                                 if(current_time!=0.0)
                                 {
-                                System.out.println("ferrari" + " WAS :"+  current_time + " : " + future_time);
+                               
                                 }
                                 
                                 
@@ -119,9 +114,9 @@ public class ResourceSchedulerWaiting {
                         //nextOp = heuristic.execute(pdm, executable_filtered, available, prerun, current_time);
                        
                         forExecution.add(nextOp_pair);
-                        //System.out.println(nextOp.getName() + " , " + nextOp_resource.getName());
+                        
                         executable.remove(nextOp);
-                        //nextOp.getResource().assignResource(instance, current_time, current_time + nextOp.getTime());
+                        
                         if(future==false)
                         {
                          nextOp_resource.assignResource(instance, current_time, current_time + nextOp.getTime(nextOp_resource));
@@ -130,7 +125,6 @@ public class ResourceSchedulerWaiting {
                         {
                          nextOp_resource.assignResource(instance, future_time, future_time + nextOp.getTime(nextOp_resource)); 
                          
-                        //System.out.println("ferrari case: " + nextOp.getName() + " , " + future_time  + " - "+  (future_time +  nextOp.getTime(nextOp_resource)) + ", resource:" + nextOp_resource.getName());
                         }
                         pdm.operations().remove(nextOp);
                         if (available.contains(pdm.target())) {
@@ -147,7 +141,6 @@ public class ResourceSchedulerWaiting {
                     }
          
          
-         System.out.println("end of scheduling: " + forExecution.size() + "  , " + pdm.operations().size());
          return forExecution;
          
          

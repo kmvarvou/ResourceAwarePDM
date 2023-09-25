@@ -27,13 +27,13 @@ public class ParallelResourceAwareScheduler implements Scheduler
          
          
          while (!executable.isEmpty()) {
-             //System.out.println("current_sizes:" + forExecution.size() + ","  + executable.size());
+             
              
              Iterator it = executed.entrySet().iterator();
                         while(it.hasNext())
                         {
                             Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                           // System.out.println(entry.getKey() + " , " + entry.getValue() + " , " + current_time);
+                           
                         }
              
                         LinkedHashSet<DataElement> available_filtered = new LinkedHashSet<DataElement>();
@@ -47,11 +47,11 @@ public class ParallelResourceAwareScheduler implements Scheduler
                            if(executed.get(d)<=current_time)
                            {
                             available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                            
                            }
                           }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                        
                         }
              
              
@@ -59,7 +59,7 @@ public class ParallelResourceAwareScheduler implements Scheduler
              if(!pdm.getResourceCapacity(current_time))
              {
                  current_time = pdm.getNextTime(current_time, pass);
-                 System.out.println("next current_time: " + current_time);
+                 
              }
                         LinkedHashSet<Operation> executable__first_filtered = new LinkedHashSet<>();
                         for (Operation op : pdm.operations()) { // for each operation
@@ -77,7 +77,7 @@ public class ParallelResourceAwareScheduler implements Scheduler
                         while(executable_filtered.isEmpty())
                         {
                             pass = false;
-                            System.out.println("exo idea" + current_time);
+                            
                             current_time = pdm.getNextTime(current_time, pass);
                             for(DataElement d : available)
                             {
@@ -86,11 +86,11 @@ public class ParallelResourceAwareScheduler implements Scheduler
                               if(executed.get(d)<=current_time)
                               {
                                available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                            
                               }
                              }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                        
                             }
                             for (Operation op : pdm.operations()) { // for each operation
                             if (!op.hasInput()) { // operation has no input
@@ -103,8 +103,7 @@ public class ParallelResourceAwareScheduler implements Scheduler
                         }
                             
                             executable_filtered = pdm.executableFilter(executable__first_filtered, current_time);
-                            //System.out.println(executable);
-                            //System.out.println("pass current_time: " + current_time);
+                            
                         }
          
                          Pair<Operation,Resource> nextOp_pair = heuristic.execute(pdm, executable_filtered, available_filtered, prerun, current_time);
@@ -119,16 +118,15 @@ public class ParallelResourceAwareScheduler implements Scheduler
                         //nextOp = heuristic.execute(pdm, executable_filtered, available, prerun, current_time);
                        
                         forExecution.add(nextOp_pair);
-                        System.out.println(nextOp.getName());
-                        System.out.println(nextOp.getResources().get(0).getName());
-                        System.out.println(nextOp.getResources().size());
                         
-                        //System.out.println(nextOp_resource.getName() + "edo???");
+                       
                         
-                        //Iterator it = nextOp.getTimeResource().entrySet().iterator();
+                        
+                        
+                        
                         
                         executable.remove(nextOp);
-                        //nextOp.getResource().assignResource(instance, current_time, current_time + nextOp.getTime());
+                        
                         
                         
                         nextOp_resource.assignResource(instance, current_time, current_time + nextOp.getTime(nextOp_resource));
@@ -143,14 +141,14 @@ public class ParallelResourceAwareScheduler implements Scheduler
                         
 
                         
-                        System.out.println( forExecution.size() + " , " + executable.size() + "," + current_time  + "boar");
+                        
                         
 
 
                     }
          
          
-         System.out.println("end of scheduling: " + forExecution.size() + "  , " + pdm.operations().size());
+        
          
          return forExecution;
          

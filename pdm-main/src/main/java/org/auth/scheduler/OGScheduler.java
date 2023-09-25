@@ -42,12 +42,7 @@ public class OGScheduler {
                         //LinkedHashSet<Operation> executable_filtered = pdm.executableFilter(executable, current_time);
 
                         if (executable.isEmpty()) {
-                            //System.out.println("execution finished");
                             
-                            //System.out.println();
-                            //sum_cost[i] += cost;
-                            //sum_time[i] += time;
-                            //obj_runs += 1;
 
                             return forExecution;
                         }
@@ -80,7 +75,7 @@ public class OGScheduler {
                     
          
          
-         //System.out.println("end of scheduling: " + forExecution.size() + "  , " + pdm.operations().size());
+         
          return forExecution;
          
          

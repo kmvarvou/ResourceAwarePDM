@@ -29,13 +29,13 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
          
          
          while (!executable.isEmpty()) {
-             //System.out.println("current_sizes:" + forExecution.size() + ","  + executable.size());
+             
              
                         Iterator it = executed.entrySet().iterator();
                         while(it.hasNext())
                         {
                             Map.Entry<DataElement,Double> entry = (Map.Entry<DataElement,Double>) it.next();
-                           // System.out.println(entry.getKey() + " , " + entry.getValue() + " , " + current_time);
+                           
                         }
              
                         LinkedHashSet<DataElement> available_filtered = new LinkedHashSet<DataElement>();
@@ -49,17 +49,17 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                            if(executed.get(d)<=current_time)
                            {
                             available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                            
                            }
                           }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                        
                         }
              
                        if(!pdm.getResourceCapacity(current_time))
                        {
                         current_time = pdm.getNextTime(current_time, pass);
-                        System.out.println("next current_time: " + current_time);
+                       
                        }
                          LinkedHashSet<Operation> executable__first_filtered = new LinkedHashSet<>();
                         for (Operation op : pdm.operations()) { // for each operation
@@ -91,11 +91,11 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                               if(executed.get(d)<=current_time)
                               {
                                available_filtered.add(d);
-                            //System.out.println(d.getName() + " available_filtered  " +  current_time);
+                           
                               }
                              }
                           
-                        // System.out.println(available_filtered.size() + "," + "boar");
+                       
                             }
                             for (Operation op : pdm.operations()) { // for each operation
                             if (!op.hasInput()) { // operation has no input
@@ -106,9 +106,9 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                                 }
                             }
                         }
-                            System.out.println("exo idea" + current_time);
+                           
                             executable_filtered = pdm.executableFilter(executable__first_filtered, current_time);
-                            //System.out.println(executable_filtered);
+                            
                             
                         }
 
@@ -141,7 +141,7 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                                 nextOp.setStartingTime(future_time);
                                 if(current_time!=0.0)
                                 {
-                                System.out.println("ferrari" + " WAS :"+  current_time + " : " + future_time);
+                                
                                 }
                                 
                                 
@@ -164,7 +164,7 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                         {
                          nextOp_resource.assignResource(instance, future_time, (future_time + nextOp.getTime(nextOp_resource))); 
                          
-                        //System.out.println("ferrari case: " + nextOp.getName() + " , " + future_time  + " - "+  (future_time +  nextOp.getTime(nextOp_resource)) + ", resource:" + nextOp_resource.getName());
+                       
                         }
                         
                          pdm.operations().remove(nextOp);
@@ -182,7 +182,7 @@ public class ParallelResourceAwareSchedulerWaiting implements Scheduler
                     }
          
          
-         System.out.println("end of scheduling: " + forExecution.size() + "  , " + pdm.operations().size());
+         
          
          return forExecution;
          
