@@ -17,7 +17,7 @@ public class ShortestTime implements Heuristic {
         executable.remove(pair.getFirst());
         Operation operation = pair.getFirst();
         Resource resource = pair.getSecond();
-        System.out.println(operation.getId());
+        
         if (prerun.get(operation)) {
             //available.add(operation.output());
           //  System.out.println(operation.getName()+ "," +current_time + " - " + (current_time +operation.getTime(resource)) + ", resource:" + pair.getSecond().getName());
@@ -33,13 +33,13 @@ public class ShortestTime implements Heuristic {
         Operation operation = Utilities.getOperationWithMinTime(executable);
         executable.remove(operation);
         Pair <Operation,Resource> result;
-        System.out.println(operation.getId());
+        
         if (prerun.get(operation)) {
             //available.add(operation.output());
-            System.out.println(operation.getName()+ "," + operation.getTime());
+           // System.out.println(operation.getName()+ "," + operation.getTime());
         } else {
             // log failure
-            System.out.println(operation.getName()+ "," + operation.getTime() + "  fail");
+           // System.out.println(operation.getName()+ "," + operation.getTime() + "  fail");
         }
         
         

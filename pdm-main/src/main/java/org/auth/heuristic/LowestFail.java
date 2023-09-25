@@ -18,10 +18,10 @@ public class LowestFail implements Heuristic {
         Pair<Operation,Resource> result;
         if (prerun.get(operation)) {
            // available.add(operation.output());
-            System.out.println(operation.getName()+ "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName());
+           // System.out.println(operation.getName()+ "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName());
         } else {
             // log failure
-            System.out.println(operation.getName()+ "," + operation.getTime()  + ", resource:" + operation.getDefaultResource().getName() + "  fail");
+            //System.out.println(operation.getName()+ "," + operation.getTime()  + ", resource:" + operation.getDefaultResource().getName() + "  fail");
         }
         
         result = new Pair(operation,operation.getDefaultResource());

@@ -107,9 +107,9 @@ public abstract class KnockoutPathPruneHeuristic implements Heuristic {
         
         if (prerun.get(operation)) {
             //available.add(operation.output());
-            System.out.println(operation.getName() + "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName());
+           // System.out.println(operation.getName() + "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName());
         } else {
-            System.out.println(operation.getName() + "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName() + "  fail");
+           // System.out.println(operation.getName() + "," + operation.getTime() + ", resource:" + operation.getDefaultResource().getName() + "  fail");
         }  
         
         

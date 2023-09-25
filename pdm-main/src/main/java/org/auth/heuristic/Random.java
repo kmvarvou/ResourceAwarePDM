@@ -41,7 +41,7 @@ public class Random implements Heuristic {
     
     @Override
     public Pair<Operation,Resource> execute_nr(PDM pdm, LinkedHashSet<Operation> executable, LinkedHashSet<DataElement> available, HashMap<Operation, Boolean> prerun, Double current_time) {
-        System.out.println(executable.size() + "executable size");
+        
         int idx = new java.util.Random().nextInt(executable.size());
         int i = 0;
         Pair<Operation, Resource> result;
@@ -50,9 +50,9 @@ public class Random implements Heuristic {
                 executable.remove(op);
                 if (prerun.get(op)) {
                    // available.add(op.output());
-                    System.out.println(op.getName() + ","   );
+                   // System.out.println(op.getName() + ","   );
                 } else {
-                    System.out.println(op.getName() + "  fail");
+                    //System.out.println(op.getName() + "  fail");
                 }
                 result = new Pair(op,op.getDefaultResource());
                 return result;

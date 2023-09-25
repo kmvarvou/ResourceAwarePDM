@@ -18,7 +18,7 @@ public class LowestCost implements Heuristic {
         Operation operation = pair.getFirst();
         Resource resource = pair.getSecond();
         executable.remove(operation);
-        System.out.println(operation.getId());
+        
         if (prerun.get(operation)) {
             //available.add(operation.output());
             //System.out.println(operation.getName()+ "," +current_time + " - " + (current_time +operation.getTime(resource)) + ", resource:" + resource.getName());
@@ -37,10 +37,10 @@ public class LowestCost implements Heuristic {
         Pair<Operation,Resource> result;
         if (prerun.get(operation)) {
             //available.add(operation.output());
-            System.out.println(operation.getName()+ "," + operation.getTime());
+           // System.out.println(operation.getName()+ "," + operation.getTime());
         } else {
             // log failure
-            System.out.println(operation.getName()+ "," + operation.getTime() + "  fail");
+            //System.out.println(operation.getName()+ "," + operation.getTime() + "  fail");
         }
         
         result = new Pair(operation,operation.getDefaultResource());

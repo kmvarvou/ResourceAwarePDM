@@ -133,7 +133,7 @@ public class KnockoutPathPruneTime extends KnockoutPathPruneHeuristic {
               prune2.add(cand);
               //String output2 = cand.replace("i","");
               int two = cand.getId();
-              //System.out.println(two);
+              
               /*if(dist[0][operation.getId()]!=0) // na to do poio value antiprosoeuei tin ellipsi edge
               {
               dist2[two]+=dist[0][operation.getId()];
@@ -167,10 +167,7 @@ public class KnockoutPathPruneTime extends KnockoutPathPruneHeuristic {
               
           }
         }
-        if(prune2.isEmpty())
-        {
-            //System.out.println("na doume");
-        }
+        
         
         
        
