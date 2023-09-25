@@ -207,7 +207,7 @@ public class Utilities {
                 index = i;
             }
         }
-        //System.out.println("min ranking " + (numbers[index][0]) );
+        
         return numbers[index][0];
     }
 
